@@ -18,6 +18,7 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 | Windows XP   | TEST |
 | Windows Vista|  OK  |
 | Windows 7    |  OK  |
+| Windows 8    |  OK  |
 | Windwos 10   |  OK  |
 
 ## Licence
