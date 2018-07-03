@@ -1,4 +1,5 @@
 rem Auteur : mederic@cossu.tech
+endlocal
 setlocal
 @echo off
 chcp437 > nul
@@ -41,6 +42,9 @@ mode con cols=100 lines=40
 	IF exist "%fold%\ressource\restart_network.bat" (echo  [OK]  2: R‚parer le services r‚seau HS
 		) else echo [FAIL] 2: R‚parer le services r‚seau HS
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	IF exist "%fold%\ressource\num_lock.bat" (echo  [OK]  3: Pav‚ num‚rique au d‚marrage
+		) else echo [FAIL] 3: Pav‚ num‚rique au d‚marrage
+	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 	echo Q: Quitter
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 	echo.
@@ -51,9 +55,6 @@ mode con cols=100 lines=40
 	IF /i "%reponse%"=="1" goto :batch1
 	IF /i "%reponse%"=="2" goto :batch2
 	IF /i "%reponse%"=="3" goto :batch3
-	IF /i "%reponse%"=="4" goto :batch4
-	IF /i "%reponse%"=="5" goto :batch5
-	IF /i "%reponse%"=="6" goto :batch6
 	IF /i "%reponse%"=="q" goto :fin
 	IF /i "%reponse%"=="Q" goto :fin
 	IF /i "%reponse%"=="" goto :menu
@@ -75,31 +76,26 @@ mode con cols=100 lines=40
 
 :batch3
 	cls
-	call %fold%\ressource\Mon_ping.bat
-	cls
-	goto :menu
-
-:batch4
-	cls
-	call %fold%\ressource\Mon_ipconfig.bat 
-	cls
-	goto :menu
-
-:batch5
-	cls
-	call %fold%\ressource\windows_update.bat
-	cls
-	goto :menu
-
-:batch6
-	cls
-	call %fold%\ressource\nettoyage.bat
+	call %fold%\ressource\num_lock.bat
+	IF exist "%fold%\ressource\num_lock.bat" (call %fold%\ressource\num_lock.bat
+		) else goto :erreur_batch3
 	cls
 	goto :menu
 
 :erreur
+	color 0C
 	cls
-	echo Dossier "%fold%ressource" non trouver.
+	echo.
+	echo.
+	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	echo  Le Dossier "%fold%ressource" n'a pu ˆtre trouv‚e!
+	echo  Merci de v‚rifier que le Dossier "%fold%ressource"est bien pr‚sent
+	echo  Ce Dossier contien tout les fonctionnalit‚ vous pouvais le t‚l‚chager sur :
+	echo.
+	echo source : https://github.com/leghort/Outils_PDT
+	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	echo.
+	echo.
 	pause
 	cls
 	goto :fin
@@ -128,6 +124,24 @@ mode con cols=100 lines=40
 	echo.
 	echo.
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	echo  Le fichier "%fold%ressource\num_lock.bat" n'a pu ˆtre trouv‚e!
+	echo  Merci de v‚rifier que le fichier "num_lock.bat"
+	echo  est bien pr‚sent dans "%fold%ressource"
+	echo  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
+	echo.
+	echo source : https://github.com/leghort/Outils_PDT
+	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	echo.
+	echo.
+	pause
+	goto :menu
+
+:erreur_batch3
+	color 0C
+	cls
+	echo.
+	echo.
+	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 	echo  Le fichier "%fold%ressource\restart_network.bat" n'a pu ˆtre trouv‚e!
 	echo  Merci de v‚rifier que le fichier "restart_network.bat"
 	echo  est bien pr‚sent dans "%fold%ressource"
@@ -139,6 +153,7 @@ mode con cols=100 lines=40
 	echo.
 	pause
 	goto :menu
+
 :fin
 	endlocal
 	exit
