@@ -50,15 +50,15 @@ mode con cols=100 lines=40
 	echo.
 	echo.
 	echo.
-	set reponse=
-	set /p reponse="Quel programme voulez-vous ex‚cuter ?"
+	set _reponse=
+	set /p _reponse="Quel programme voulez-vous ex‚cuter ?"
 
-	IF /i "%reponse%" == "1" goto :batch1
-	IF /i "%reponse%" == "2" goto :batch2
-	IF /i "%reponse%" == "3" goto :batch3
-	IF /i "%reponse%" == "q" goto :fin
-	IF /i "%reponse%" == "Q" goto :fin
-	IF /i "%reponse%" == "" goto :menu
+	IF /i "%_reponse%" == "1" goto :batch1
+	IF /i "%_reponse%" == "2" goto :batch2
+	IF /i "%_reponse%" == "3" goto :batch3
+	IF /i "%_reponse%" == "q" goto :fin
+	IF /i "%_reponse%" == "Q" goto :fin
+	IF /i "%_reponse%" == "" goto :menu
 	goto :menu
 
 :batch1
