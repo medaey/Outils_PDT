@@ -1,5 +1,5 @@
 # Outils_PDT
-Une boite à outils pour les technicien poste de travail sous Windows
+Une boîte à outils pour les techniciens poste de travail sous Windows
 <h3 align="center"><img src="https://i.imgur.com/gcriGSo.png" alt="logo" height="400px"></h3>
 
 Cet outil d'administration en ligne de commander est écrit en batch et encoder en DOS (CP437).
