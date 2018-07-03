@@ -60,6 +60,7 @@ mode con cols=100 lines=40
 :batch1
 	cls
 	rem Active L'Autologon
+	IF NOT exist "%tmp%" (mkdir "%tmp%")
 	IF exist "%tmp%\nom_domaine.txt" (del /s %tmp%\nom_domaine.txt) else goto :control_1
 	cls
 	:control_1
