@@ -45,15 +45,16 @@ mode con cols=100 lines=40
 	echo 컴컴컴컴컴컴컴컴컴컴컴컴컴�
 	echo.
 	echo.
+	set reponse=
 	set /p reponse="Quel programme voulez-vous executer ?"
 
-	IF /i "%reponse%"=="1" goto :batch1
-	IF /i "%reponse%"=="2" goto :batch2
-	IF /i "%reponse%"=="r" goto :retour
-	IF /i "%reponse%"=="R" goto :retour
-	IF /i "%reponse%"=="q" goto :fin
-	IF /i "%reponse%"=="Q" goto :fin
-	IF /i "%reponse%"=="" goto :menu_logon
+	IF /i "%reponse%" == "1" goto :batch1
+	IF /i "%reponse%" == "2" goto :batch2
+	IF /i "%reponse%" == "r" goto :retour
+	IF /i "%reponse%" == "R" goto :retour
+	IF /i "%reponse%" == "q" goto :fin
+	IF /i "%reponse%" == "Q" goto :fin
+	IF /i "%reponse%" == "" goto :menu_logon
 	goto :menu_logon
 
 :batch1
