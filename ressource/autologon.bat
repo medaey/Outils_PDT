@@ -1,5 +1,5 @@
 rem Auteur : mederic@cossu.tech
-rem Version : 1.0.5
+endlocal
 setlocal
 @echo off
 chcp437 > nul
@@ -69,13 +69,14 @@ mode con cols=100 lines=40
 	set /p psw= Saisir le mot de passe de la session : 
 	set /p dmn= Saisire le nom de domaine : 
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "1" /f /t REG_SZ
-	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%psw%" /f /t REG_SZ
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultUserName" /d "%nom%" /f /t REG_SZ
+	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "%psw%" /f /t REG_SZ
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultDomainName" /d "%dmn%" /f /t REG_SZ
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "ForceAutoLogon" /d "1" /f /t REG_SZ
 	echo username = %nom%
 	echo password = %psw%
-	timeout /t 5
+	echo domaine = %dmn%
+	pause
 	del /s /q %tmp%\nom_domaine.txt
 	cls
 	goto :menu_logon
@@ -86,11 +87,12 @@ mode con cols=100 lines=40
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "AutoAdminLogon" /d "0" /f /t REG_SZ
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "DefaultPassword" /d "" /f /t REG_SZ
 	reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v "ForceAutoLogon" /d "0" /f /t REG_SZ
-	timeout /t 5
+	pause
 	cls
 	goto :menu_logon
 
 :retour
+	endlocal
 	exit /b 0
 
 :fin

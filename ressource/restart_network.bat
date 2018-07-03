@@ -1,5 +1,5 @@
 rem Auteur : mederic@cossu.tech
-rem Version : 1.0.3
+endlocal
 setlocal
 @echo off
 chcp437 > nul
@@ -32,6 +32,7 @@ mode con cols=100 lines=40
 	goto :fin
 
 :retour
+	endlocal
 	exit /b 0
 
 :fin
