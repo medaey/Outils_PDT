@@ -36,7 +36,7 @@ mode con cols=100 lines=40
 	echo.
 	echo Executer depuis : %fold% 
 	echo 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
-	IF exist "%fold%\ressource\autologon.bat" (echo  [OK]  1: G굍er l'Autologon
+	IF exist "%fold%ressource\autologon.bat" (echo  [OK]  1: G굍er l'Autologon
 		) else echo [FAIL] 1: G굍er l'Autologon
 	echo 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
 	IF exist "%fold%\ressource\restart_network.bat" (echo  [OK]  2: R굋arer le services r굎eau HS
@@ -63,22 +63,24 @@ mode con cols=100 lines=40
 
 :batch1
 	cls
-	IF exist "%fold%\ressource\autologon.bat" (call %fold%\ressource\autologon.bat
+	cd %fold%
+	IF exist "ressource\autologon.bat" (call ressource\autologon.bat
 		) else goto :erreur_batch1
 	cls
 	goto :menu
 
 :batch2
 	cls
-	IF exist "%fold%\ressource\restart_network.bat" (call %fold%\ressource\restart_network.bat
+	cd %fold%
+	IF exist "ressource\restart_network.bat" (call ressource\restart_network.bat
 		) else goto :erreur_batch2
 	cls
 	goto :menu
 
 :batch3
 	cls
-	call %fold%\ressource\num_lock.bat
-	IF exist "%fold%\ressource\num_lock.bat" (call %fold%\ressource\num_lock.bat
+	cd %fold%
+	IF exist "ressource\num_lock.bat" (call ressource\num_lock.bat
 		) else goto :erreur_batch3
 	cls
 	goto :menu
