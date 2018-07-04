@@ -34,15 +34,16 @@ mode con cols=100 lines=40
 	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 	echo.
 	echo.
+
 	echo Executer depuis : %fold% 
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	IF exist "%fold%\ressource\autologon.bat" (echo  [OK]  1: G‚rer l'Autologon
+	IF exist "%fold%ressource\autologon.bat" (echo  [OK]  1: G‚rer l'Autologon
 		) else echo [FAIL] 1: G‚rer l'Autologon
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	IF exist "%fold%\ressource\restart_network.bat" (echo  [OK]  2: R‚parer le services r‚seau HS
+	IF exist "%fold%ressource\restart_network.bat" (echo  [OK]  2: R‚parer le services r‚seau HS
 		) else echo [FAIL] 2: R‚parer le services r‚seau HS
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	IF exist "%fold%\ressource\num_lock.bat" (echo  [OK]  3: Pav‚ num‚rique au d‚marrage
+	IF exist "%fold%ressource\num_lock.bat" (echo  [OK]  3: Pav‚ num‚rique au d‚marrage
 		) else echo [FAIL] 3: Pav‚ num‚rique au d‚marrage
 	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
 	echo Q: Quitter
@@ -63,22 +64,48 @@ mode con cols=100 lines=40
 
 :batch1
 	cls
-	IF exist "%fold%\ressource\autologon.bat" (call %fold%\ressource\autologon.bat
+	if %homedrive% EQU %fold:~0,2% (goto :batch1_local)
+	IF exist "%fold%ressource\autologon.bat" (call %fold%ressource\autologon.bat
+		) else goto :erreur_batch1
+	cls
+	goto :menu
+
+:batch1_local
+	cls
+	cd %fold%
+	IF exist "ressource\autologon.bat" (call ressource\autologon.bat
 		) else goto :erreur_batch1
 	cls
 	goto :menu
 
 :batch2
 	cls
-	IF exist "%fold%\ressource\restart_network.bat" (call %fold%\ressource\restart_network.bat
+	if %homedrive% EQU %fold:~0,2% (goto :batch2_local)
+	IF exist "%fold%ressource\restart_network.bat" (call %fold%ressource\restart_network.bat
+		) else goto :erreur_batch2
+	cls
+	goto :menu
+
+:batch2_local
+	cls
+	cd %fold%
+	IF exist "ressource\restart_network.bat" (call ressource\restart_network.bat
 		) else goto :erreur_batch2
 	cls
 	goto :menu
 
 :batch3
 	cls
-	call %fold%\ressource\num_lock.bat
-	IF exist "%fold%\ressource\num_lock.bat" (call %fold%\ressource\num_lock.bat
+	if %homedrive% EQU %fold:~0,2% (goto :batch3_local)
+	IF exist "%fold%ressource\num_lock.bat" (call %fold%ressource\num_lock.bat
+		) else goto :erreur_batch3
+	cls
+	goto :menu
+
+:batch3_local
+	cls
+	cd %fold%
+	IF exist "ressource\num_lock.bat" (call ressource\num_lock.bat
 		) else goto :erreur_batch3
 	cls
 	goto :menu
