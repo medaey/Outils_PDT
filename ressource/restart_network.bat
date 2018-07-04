@@ -1,5 +1,4 @@
 rem Auteur : mederic@cossu.tech
-endlocal
 setlocal
 @echo off
 chcp437 > nul
@@ -23,11 +22,13 @@ mode con cols=100 lines=40
 	rem Reparation d'une carte reseaux non detect‚e par windows 7
 	cls
 	echo.
+	net localgroup administrateurs utilisateurs /add networkservice localservice
+	echo.
 	echo /!\ Attention c'ette action va red‚marrer l'ordinateur /!\
 	echo.
 	set /p question=Souhaitez vous continuez [O/N]?
 	if /i not "%question%"=="O" goto :retour
-	net localgroup administrateurs utilisateurs /add networkservice localservice
+	pause
 	shutdown -r -t 5
 	goto :fin
 

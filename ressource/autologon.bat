@@ -1,5 +1,4 @@
 rem Auteur : mederic@cossu.tech
-endlocal
 setlocal
 @echo off
 chcp437 > nul

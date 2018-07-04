@@ -1,5 +1,4 @@
 rem Auteur : mederic@cossu.tech
-endlocal
 setlocal
 @echo off
 chcp437 > nul
@@ -64,6 +63,7 @@ mode con cols=100 lines=40
 
 :batch1
 	cls
+	rem v‚rifier si l'outils est lancer sur le disque dur local, si oui goto batch1_local
 	if %homedrive% EQU %fold:~0,2% (goto :batch1_local)
 	IF exist "%fold%ressource\autologon.bat" (call %fold%ressource\autologon.bat
 		) else goto :erreur_batch1
@@ -80,6 +80,7 @@ mode con cols=100 lines=40
 
 :batch2
 	cls
+	rem v‚rifier si l'outils est lancer sur le disque dur local, si oui goto batch2_local
 	if %homedrive% EQU %fold:~0,2% (goto :batch2_local)
 	IF exist "%fold%ressource\restart_network.bat" (call %fold%ressource\restart_network.bat
 		) else goto :erreur_batch2
@@ -96,6 +97,7 @@ mode con cols=100 lines=40
 
 :batch3
 	cls
+	rem v‚rifier si l'outils est lancer sur le disque dur local, si oui goto batch3_local
 	if %homedrive% EQU %fold:~0,2% (goto :batch3_local)
 	IF exist "%fold%ressource\num_lock.bat" (call %fold%ressource\num_lock.bat
 		) else goto :erreur_batch3
