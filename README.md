@@ -18,7 +18,7 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 | Windows 98   | TEST |
 | Windows 2000 | TEST |
 | Windows ME   | TEST |
-| Windows XP   | TEST |
+| Windows XP   |  OK  |
 | Windows Vista|  OK  |
 | Windows 7    |  OK  |
 | Windows 8    |  OK  |
