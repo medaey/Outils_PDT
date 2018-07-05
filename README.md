@@ -23,7 +23,7 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 | Windows Vista|  OK  |
 | Windows 7    |  OK  |
 | Windows 8    |  OK  |
-| Windwos 10   |  OK  |
+| Windows 10   |  OK  |
 
 ## Licence
 Ce programme est un logiciel libre; vous pouvez le redistribuer et / ou le modifier selon vos envies
