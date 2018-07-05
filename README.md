@@ -14,9 +14,9 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 
 | Distribution |    Version    |
 | ------------ | ------------- |
-| Windows NT   | FAIL |
-| Windows 95   | FAIL |
-| Windows 98   | FAIL |
+| Windows NT   | ETAT |
+| Windows 95   | ETAT |
+| Windows 98   | ETAT |
 | Windows 2000 |  OK  |
 | Windows ME   |  OK  |
 | Windows XP   |  OK  |
