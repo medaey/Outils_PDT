@@ -3,7 +3,7 @@ Une boîte à outils pour les techniciens poste de travail sous Windows
 <h3 align="center"><img src="https://i.imgur.com/fyvUFse.png" alt="logo" height="400px"></h3>
 
 Cet outil d'administration en ligne de commander est écrit en batch et encoder en DOS (CP437).
-Il utilise CMD.EXE qui est apparu depuis Windows 2000.
+Il utilise <a href=https://fr.wikipedia.org/wiki/Cmd> CMD.EXE </a> qui est apparu depuis Windows 2000.
 
 ## Introduction
 Le but général de cet outil est de réunir un ensemble de scripts, qui automatiser les actions qu'un technicien poste de travail est amené à effectuer régulièrement ceci afin de simplifier l'intervention.
