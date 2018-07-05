@@ -3,6 +3,7 @@ Une boîte à outils pour les techniciens poste de travail sous Windows
 <h3 align="center"><img src="https://i.imgur.com/fyvUFse.png" alt="logo" height="400px"></h3>
 
 Cet outil d'administration en ligne de commander est écrit en batch et encoder en DOS (CP437).
+Il utilise CMD.EXE qui est apparu depuis Windows 2000.
 
 ## Introduction
 Le but général de cet outil est de réunir un ensemble de scripts, qui automatiser les actions qu'un technicien poste de travail est amené à effectuer régulièrement ceci afin de simplifier l'intervention.
@@ -13,11 +14,11 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 
 | Distribution |    Version    |
 | ------------ | ------------- |
-| Windows NT   | TEST |
-| Windows 95   | TEST |
-| Windows 98   | TEST |
-| Windows 2000 | TEST |
-| Windows ME   | TEST |
+| Windows NT   | FAIL |
+| Windows 95   | FAIL |
+| Windows 98   | FAIL |
+| Windows 2000 |  OK  |
+| Windows ME   |  OK  |
 | Windows XP   |  OK  |
 | Windows Vista|  OK  |
 | Windows 7    |  OK  |
