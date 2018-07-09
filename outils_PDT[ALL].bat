@@ -1,189 +1,186 @@
-rem Auteur : mederic@cossu.tech
-setlocal
-@echo off
-chcp437 > nul
-@for %%n in (%0) do set fold=%%~dpn
-title Boite A Outils Technicien Poste De Travail                                                  By M.Cossu
-mode con cols=100 lines=40
+@ECHO off
+SETLOCAL
+CHCP 437 > nul
+MODE con cols=100 lines=40
+TITLE Boite A Outils Technicien Poste De Travail                                                  By M.Cossu
 
-:check_admin
-	rem v‚rifier ci le script est bien ‚xecuter en Administrateur
-		attrib %windir%\system32 -h | findstr /I "system32" >nul
-		IF %errorlevel% neq 1 (
-		color 0C
-		echo.
-		echo. /!\ Ce script doit etre Ex‚cuter en tant qu'Administrateur /!\
-		echo.
-		pause
-		exit
-       )
+REM D‚finir les chemin d'acces relative des dossier
+SET MAIN_FOLDER=%~dp0
+SET RESS_FOLDER=%~dp0ressource\
+SET TEMP_FOLDER=%TMP%\Outils_PDT.tmp\
 
-:menu
-	color 0b
-	IF exist "%fold%ressource" (echo Dossier "ressource" trouver.) else goto :erreur
-	cls
-	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	echo                                 ÛÛÛÛÛ» ÛÛÛÛÛÛ» ÛÛÛ»   ÛÛÛ»ÛÛ»ÛÛÛ»   ÛÛ»
-	echo                                ÛÛÉÍÍÛÛ»ÛÛÉÍÍÛÛ»ÛÛÛÛ» ÛÛÛÛºÛÛºÛÛÛÛ»  ÛÛº
-	echo                                ÛÛÛÛÛÛÛºÛÛº  ÛÛºÛÛÉÛÛÛÛÉÛÛºÛÛºÛÛÉÛÛ» ÛÛº
-	echo                                ÛÛÉÍÍÛÛºÛÛº  ÛÛºÛÛºÈÛÛÉ¼ÛÛºÛÛºÛÛºÈÛÛ»ÛÛº
-	echo                                ÛÛº  ÛÛºÛÛÛÛÛÛÉ¼ÛÛº ÈÍ¼ ÛÛºÛÛºÛÛº ÈÛÛÛÛº
-	echo                                ÈÍ¼  ÈÍ¼ÈÍÍÍÍÍ¼ ÈÍ¼     ÈÍ¼ÈÍ¼ÈÍ¼  ÈÍÍÍ¼
-	echo                                                Page (1/2)
-	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	echo.
-	echo.
+IF NOT EXIST "%RESS_FOLDER%" (
+	GOTO :RESS_ERROR
+)
+IF NOT EXIST %TMP% (
+	 MKDIR %TMP%
+)
+IF NOT EXIST %TEMP_FOLDER% (
+	MKDIR %TEMP_FOLDER%
+) ELSE DEL /S /Q %TEMP_FOLDER%
 
-	echo Executer depuis : %fold% 
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	IF exist "%fold%ressource\autologon.bat" (echo  [OK]  1: G‚rer l'Autologon
-		) else echo [FAIL] 1: G‚rer l'Autologon
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	IF exist "%fold%ressource\restart_network.bat" (echo  [OK]  2: R‚parer le services r‚seau HS
-		) else echo [FAIL] 2: R‚parer le services r‚seau HS
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	IF exist "%fold%ressource\num_lock.bat" (echo  [OK]  3: Pav‚ num‚rique au d‚marrage
-		) else echo [FAIL] 3: Pav‚ num‚rique au d‚marrage
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo Q: Quitter
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo.
-	echo.
-	echo.
-	set _reponse=
-	set /p _reponse="Quel programme voulez-vous ex‚cuter ?"
+CLS
+SYSTEMINFO | FINDSTR /B /C:"Domain">%TEMP_FOLDER%domaine_name
+ECHO %MAIN_FOLDER%>%TEMP_FOLDER%main_folder
+ECHO %RESS_FOLDER%>%TEMP_FOLDER%res_folder
+SET /p RESS_FOLDER_TMP=<%TEMP_FOLDER%res_folder
+SET /p DOMAINE_NAME=<%TEMP_FOLDER%domaine_name
 
-	IF /i "%_reponse%" == "1" goto :batch1
-	IF /i "%_reponse%" == "2" goto :batch2
-	IF /i "%_reponse%" == "3" goto :batch3
-	IF /i "%_reponse%" == "q" goto :fin
-	IF /i "%_reponse%" == "Q" goto :fin
-	IF /i "%_reponse%" == "" goto :menu
-	goto :menu
+:CHECK_ADMIN
+	CLS
+	ATTRIB %WINDIR%\system32 -h | FINDSTR /I "system32" >nul
+	IF %ERRORLEVEL% NEQ 1 (
+	COLOR 0C
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO. /!\ Ce script doit etre Ex‚cuter en tant qu'Administrateur /!\
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	PAUSE
+	GOTO :FIN
+    )
 
-:batch1
-	cls
-	rem v‚rifier si l'outils est lancer sur le disque dur local, si oui goto batch1_local
-	if %homedrive% EQU %fold:~0,2% (goto :batch1_local)
-	IF exist "%fold%ressource\autologon.bat" (call %fold%ressource\autologon.bat
-		) else goto :erreur_batch1
-	cls
-	goto :menu
+:MAIN_MENU
+	CLS
+	COLOR 0b
+	ECHO                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	ECHO                                 ÛÛÛÛÛ» ÛÛÛÛÛÛ» ÛÛÛ»   ÛÛÛ»ÛÛ»ÛÛÛ»   ÛÛ»
+	ECHO                                ÛÛÉÍÍÛÛ»ÛÛÉÍÍÛÛ»ÛÛÛÛ» ÛÛÛÛºÛÛºÛÛÛÛ»  ÛÛº
+	ECHO                                ÛÛÛÛÛÛÛºÛÛº  ÛÛºÛÛÉÛÛÛÛÉÛÛºÛÛºÛÛÉÛÛ» ÛÛº
+	ECHO                                ÛÛÉÍÍÛÛºÛÛº  ÛÛºÛÛºÈÛÛÉ¼ÛÛºÛÛºÛÛºÈÛÛ»ÛÛº
+	ECHO                                ÛÛº  ÛÛºÛÛÛÛÛÛÉ¼ÛÛº ÈÍ¼ ÛÛºÛÛºÛÛº ÈÛÛÛÛº
+	ECHO                                ÈÍ¼  ÈÍ¼ÈÍÍÍÍÍ¼ ÈÍ¼     ÈÍ¼ÈÍ¼ÈÍ¼  ÈÍÍÍ¼
+	ECHO                                                Page (1/2)
+	ECHO                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	ECHO                                                         Version : 1.1.6
+	ECHO.
+	ECHO.
+	ECHO Executer depuis : %~dp0
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	IF EXIST "%RESS_FOLDER%autologon.bat" (
+		ECHO  [OK]  1: G‚rer l'Autologon
+	) ELSE ECHO [FAIL] 1: G‚rer l'Autologon
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	IF EXIST "%RESS_FOLDER%restart_network.bat" (
+		ECHO  [OK]  2: R‚parer le services r‚seau HS
+	) ELSE ECHO [FAIL] 2: R‚parer le services r‚seau HS
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	IF EXIST "%RESS_FOLDER%num_lock.bat" (
+		ECHO  [OK]  3: Pav‚ num‚rique au d‚marrage
+	) ELSE ECHO [FAIL] 3: Pav‚ num‚rique au d‚marrage
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  O: Options
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Q: Quitter
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO Quel programme voulez-vous ex‚cuter ?
+	SET MAIN_CHOIX=
+	SET /p MAIN_CHOIX=
+	IF /i "%MAIN_CHOIX%" == "1" GOTO :BATCH_1
+	IF /i "%MAIN_CHOIX%" == "2" GOTO :BATCH_2
+	IF /i "%MAIN_CHOIX%" == "3" GOTO :BATCH_3
+	IF /i "%MAIN_CHOIX%" == "o" GOTO :OPTION
+	IF /i "%MAIN_CHOIX%" == "O" GOTO :OPTION
+	IF /i "%MAIN_CHOIX%" == "q" GOTO :FIN
+	IF /i "%MAIN_CHOIX%" == "Q" GOTO :FIN
+	IF /i "%MAIN_CHOIX%" == "" GOTO :MAIN_MENU
+	GOTO :MAIN_MENU
 
-:batch1_local
-	cls
-	cd %fold%
-	IF exist "ressource\autologon.bat" (call ressource\autologon.bat
-		) else goto :erreur_batch1
-	cls
-	goto :menu
+:test
+echo test
+goto :MAIN_MENU
 
-:batch2
-	cls
-	rem v‚rifier si l'outils est lancer sur le disque dur local, si oui goto batch2_local
-	if %homedrive% EQU %fold:~0,2% (goto :batch2_local)
-	IF exist "%fold%ressource\restart_network.bat" (call %fold%ressource\restart_network.bat
-		) else goto :erreur_batch2
-	cls
-	goto :menu
+:BATCH_1
+	IF EXIST "%RESS_FOLDER_TMP%autologon.bat" (
+		CALL "%RESS_FOLDER%autologon.bat"
+	) ELSE GOTO :ERREUR_BATCH_1
+	GOTO :MAIN_MENU
 
-:batch2_local
-	cls
-	cd %fold%
-	IF exist "ressource\restart_network.bat" (call ressource\restart_network.bat
-		) else goto :erreur_batch2
-	cls
-	goto :menu
+:BATCH_2
+	IF EXIST "%RESS_FOLDER%restart_network.bat" (
+		CALL "%RESS_FOLDER%restart_network.bat"
+	) ELSE GOTO :ERREUR_BATCH_2
+	GOTO :MAIN_MENU
 
-:batch3
-	cls
-	rem v‚rifier si l'outils est lancer sur le disque dur local, si oui goto batch3_local
-	if %homedrive% EQU %fold:~0,2% (goto :batch3_local)
-	IF exist "%fold%ressource\num_lock.bat" (call %fold%ressource\num_lock.bat
-		) else goto :erreur_batch3
-	cls
-	goto :menu
+:BATCH_3
+	IF EXIST "%RESS_FOLDER%num_lock.bat" (
+		CALL "%RESS_FOLDER%num_lock.bat"
+	) ELSE GOTO :ERREUR_BATCH_3
+	GOTO :MAIN_MENU
 
-:batch3_local
-	cls
-	cd %fold%
-	IF exist "ressource\num_lock.bat" (call ressource\num_lock.bat
-		) else goto :erreur_batch3
-	cls
-	goto :menu
+:OPTION
+	IF EXIST "%RESS_FOLDER%my_OPTION.bat" (
+		CALL "%RESS_FOLDER%my_OPTION.bat"
+	) ELSE GOTO :ERREUR_OPTION
+	GOTO :MAIN_MENU
 
-:erreur
-	color 0C
-	cls
-	echo.
-	echo.
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo  Le Dossier "%fold%ressource" n'a pu ˆtre trouv‚e!
-	echo  Merci de v‚rifier que le Dossier "%fold%ressource"est bien pr‚sent
-	echo  Ce Dossier contien tout les fonctionnalit‚ vous pouvais le t‚l‚chager sur :
-	echo.
-	echo source : https://github.com/leghort/Outils_PDT
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo.
-	echo.
-	pause
-	cls
-	goto :fin
+:RESS_ERROR
+	CLS
+	COLOR 0C
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Le Dossier "%RESS_FOLDER%" n'a pu ˆtre trouv‚e!
+	ECHO  Merci de v‚rifier que le Dossier "%RESS_FOLDER%"est bien pr‚sent
+	ECHO  Ce Dossier contien tout les fonctionnalit‚ vous pouvais le t‚l‚chager sur :
+	ECHO.
+	ECHO source : https://github.com/leghort/Outils_PDT
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	PAUSE
+	GOTO :FIN
 
-:erreur_batch1
-	color 0C
-	cls
-	echo.
-	echo.
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo  Le fichier "%fold%ressource\autologon.bat" n'a pu ˆtre trouv‚e!
-	echo  Merci de v‚rifier que le fichier "autologon.bat"
-	echo  est bien pr‚sent dans "%fold%ressource"
-	echo  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
-	echo.
-	echo source : https://github.com/leghort/Outils_PDT
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo.
-	echo.
-	pause
-	goto :menu
+:ERREUR_BATCH_1
+	CLS
+	COLOR 0C
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Le fichier "%RESS_FOLDER%autologon.bat" n'a pu ˆtre trouv‚e!
+	ECHO  Merci de v‚rifier que le fichier "autologon.bat"
+	ECHO  est bien pr‚sent dans "%RESS_FOLDER%"
+	ECHO  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
+	ECHO.
+	ECHO source : https://github.com/leghort/Outils_PDT
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	PAUSE
+	GOTO :MAIN_MENU
 
-:erreur_batch2
-	color 0C
-	cls
-	echo.
-	echo.
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo  Le fichier "%fold%ressource\num_lock.bat" n'a pu ˆtre trouv‚e!
-	echo  Merci de v‚rifier que le fichier "num_lock.bat"
-	echo  est bien pr‚sent dans "%fold%ressource"
-	echo  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
-	echo.
-	echo source : https://github.com/leghort/Outils_PDT
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo.
-	echo.
-	pause
-	goto :menu
+:ERREUR_BATCH_2
+	CLS
+	COLOR 0C
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Le fichier "%RESS_FOLDER%num_lock.bat" n'a pu ˆtre trouv‚e!
+	ECHO  Merci de v‚rifier que le fichier "num_lock.bat"
+	ECHO  est bien pr‚sent dans "%RESS_FOLDER%"
+	ECHO  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
+	ECHO.
+	ECHO source : https://github.com/leghort/Outils_PDT
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	PAUSE
+	GOTO :MAIN_MENU
 
-:erreur_batch3
-	color 0C
-	cls
-	echo.
-	echo.
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo  Le fichier "%fold%ressource\restart_network.bat" n'a pu ˆtre trouv‚e!
-	echo  Merci de v‚rifier que le fichier "restart_network.bat"
-	echo  est bien pr‚sent dans "%fold%ressource"
-	echo  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
-	echo.
-	echo source : https://github.com/leghort/Outils_PDT
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo.
-	echo.
-	pause
-	goto :menu
+:ERREUR_BATCH_3
+	CLS
+	COLOR 0C
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Le fichier "%RESS_FOLDER%restart_network.bat" n'a pu ˆtre trouv‚e!
+	ECHO  Merci de v‚rifier que le fichier "restart_network.bat"
+	ECHO  est bien pr‚sent dans "%RESS_FOLDER%"
+	ECHO  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
+	ECHO.
+	ECHO source : https://github.com/leghort/Outils_PDT
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	PAUSE
+	GOTO :MAIN_MENU
 
-:fin
-	endlocal
-	exit
+:ERREUR_OPTION
+	CLS
+	COLOR 0C
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Le fichier "%RESS_FOLDER%my_OPTION.bat" n'a pu ˆtre trouv‚e!
+	ECHO  Merci de v‚rifier que le fichier "my_OPTION.bat"
+	ECHO  est bien pr‚sent dans "%RESS_FOLDER%"
+	ECHO  (cette fontionnalit‚e ne sera pas disponible tant que le problŠme ne sera pas r‚solut)
+	ECHO.
+	ECHO source : https://github.com/leghort/Outils_PDT
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	PAUSE
+	GOTO :MAIN_MENU
+
+:FIN
+	ENDLOCAL
+	EXIT

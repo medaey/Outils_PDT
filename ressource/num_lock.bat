@@ -1,83 +1,58 @@
-rem Auteur : mederic@cossu.tech
-setlocal
-@echo off
-chcp437 > nul
-@for %%n in (%0) do set fold=%%~dpn
-title Boite A Outils Technicien Poste De Travail                                                  By M.Cossu
-mode con cols=100 lines=40
+:NUMLOCK_MENU
+	CLS
+	COLOR 0b
+	ECHO                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	ECHO                                 ÛÛÛÛÛ» ÛÛÛÛÛÛ» ÛÛÛ»   ÛÛÛ»ÛÛ»ÛÛÛ»   ÛÛ»
+	ECHO                                ÛÛÉÍÍÛÛ»ÛÛÉÍÍÛÛ»ÛÛÛÛ» ÛÛÛÛºÛÛºÛÛÛÛ»  ÛÛº
+	ECHO                                ÛÛÛÛÛÛÛºÛÛº  ÛÛºÛÛÉÛÛÛÛÉÛÛºÛÛºÛÛÉÛÛ» ÛÛº
+	ECHO                                ÛÛÉÍÍÛÛºÛÛº  ÛÛºÛÛºÈÛÛÉ¼ÛÛºÛÛºÛÛºÈÛÛ»ÛÛº
+	ECHO                                ÛÛº  ÛÛºÛÛÛÛÛÛÉ¼ÛÛº ÈÍ¼ ÛÛºÛÛºÛÛº ÈÛÛÛÛº
+	ECHO                                ÈÍ¼  ÈÍ¼ÈÍÍÍÍÍ¼ ÈÍ¼     ÈÍ¼ÈÍ¼ÈÍ¼  ÈÍÍÍ¼
+	ECHO                                       Pav‚ num‚rique au d‚marrage
+	ECHO                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	ECHO                                                         Version : 1.1.6
+	ECHO.
+	ECHO.
+	ECHO Executer depuis : %~dp0
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  1: Activer pav‚ num‚rique au d‚marrage
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  2: D‚sactiver pav‚ num‚rique au d‚marrage
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  R: Retour au menu principal
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO  Q: Quitter
+	ECHO ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+	ECHO Quel programme voulez-vous ex‚cuter ?
+	SET NUMLOCK_CHOIX=
+	SET /p NUMLOCK_CHOIX= 
+	IF /i "%NUMLOCK_CHOIX%" == "1" GOTO :NUMLOCK_ENABLE
+	IF /i "%NUMLOCK_CHOIX%" == "2" GOTO :NUMLOCK_DISABLE
+	IF /i "%NUMLOCK_CHOIX%" == "r" GOTO :RETOUR
+	IF /i "%NUMLOCK_CHOIX%" == "R" GOTO :RETOUR
+	IF /i "%NUMLOCK_CHOIX%" == "q" GOTO :FIN
+	IF /i "%NUMLOCK_CHOIX%" == "Q" GOTO :FIN
+	IF /i "%NUMLOCK_CHOIX%" == ""  GOTO :NUMLOCK_MENU
+	GOTO :NUMLOCK_MENU
 
-:check_admin
-	rem v‚rifier ci le script est bien ‚xecuter en Administrateur
-		attrib %windir%\system32 -h | findstr /I "system32" >nul
-		IF %errorlevel% neq 1 (
-		color 0C
-		echo.
-		echo. /!\ Ce script doit etre Ex‚cuter en tant qu'Administrateur /!\
-		echo.
-		pause
-		exit
-       )
+:NUMLOCK_ENABLE
+	CLS
+	REG add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2" /f /t REG_SZ
+	REG QUERY "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
+	PAUSE
+	GOTO :NUMLOCK_MENU
 
-:menu_num
-	color 0b
-	cls
-	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	echo                                 ÛÛÛÛÛ» ÛÛÛÛÛÛ» ÛÛÛ»   ÛÛÛ»ÛÛ»ÛÛÛ»   ÛÛ»
-	echo                                ÛÛÉÍÍÛÛ»ÛÛÉÍÍÛÛ»ÛÛÛÛ» ÛÛÛÛºÛÛºÛÛÛÛ»  ÛÛº
-	echo                                ÛÛÛÛÛÛÛºÛÛº  ÛÛºÛÛÉÛÛÛÛÉÛÛºÛÛºÛÛÉÛÛ» ÛÛº
-	echo                                ÛÛÉÍÍÛÛºÛÛº  ÛÛºÛÛºÈÛÛÉ¼ÛÛºÛÛºÛÛºÈÛÛ»ÛÛº
-	echo                                ÛÛº  ÛÛºÛÛÛÛÛÛÉ¼ÛÛº ÈÍ¼ ÛÛºÛÛºÛÛº ÈÛÛÛÛº
-	echo                                ÈÍ¼  ÈÍ¼ÈÍÍÍÍÍ¼ ÈÍ¼     ÈÍ¼ÈÍ¼ÈÍ¼  ÈÍÍÍ¼
-	echo                                        Pav‚ num‚rique au d‚marrage
-	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	echo.
-	echo.
-	echo Executer depuis : %fold% 
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo 1: Activer pav‚ num‚rique au d‚marrage
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo 2: D‚sactiver pav‚ num‚rique au d‚marrage
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo R: Retour au menu principal
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo Q: Quitter
-	echo ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
-	echo.
-	echo.
-	set _reponse=
-	set /p _reponse="Quel programme voulez-vous executer ?"
+:NUMLOCK_DISABLE
+	CLS
+	REG add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2147483648" /f /t REG_SZ
+	REG QUERY "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
+	PAUSE
+	GOTO :NUMLOCK_MENU
 
-	IF /i "%_reponse%" == "1" goto :batch1
-	IF /i "%_reponse%" == "2" goto :batch2
-	IF /i "%_reponse%" == "r" goto :retour
-	IF /i "%_reponse%" == "R" goto :retour
-	IF /i "%_reponse%" == "q" goto :fin
-	IF /i "%_reponse%" == "Q" goto :fin
-	IF /i "%_reponse%" == ""  goto :menu_num
-	goto :menu_num
+:RETOUR
+	ENDLOCAL
+	EXIT /b 0
 
-:batch1
-	cls
-	rem Activer pav‚ num‚rique au d‚marrage
-	reg add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2" /f /t REG_SZ
-	reg query "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
-	pause
-	cls
-	goto :menu_num
-
-:batch2
-	cls
-	rem D‚sactiver pav‚ num‚rique au d‚marrage
-	reg add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2147483648" /f /t REG_SZ
-	reg query "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
-	pause
-	cls
-	goto :menu_num
-
-:retour
-	endlocal
-	exit /b 0
-
-:fin
-	endlocal
-	exit
+:FIN
+	ENDLOCAL
+	EXIT
