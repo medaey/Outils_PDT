@@ -26,4 +26,4 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 | Windows 10   |  OK  |
 
 ## Licence
-Ce programme est sous license libre; vous pouvez le redistribuer et / ou le modifier selon vos envies
+Open source : GPL-3.0
