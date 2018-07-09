@@ -1,6 +1,6 @@
 # Outils_PDT
 Une boîte à outils pour les technciens poste de travail sous Windows
-<h3 align="center"><img src="https://i.imgur.com/fyvUFse.png" alt="logo" height="400px"></h3>
+<h3 align="center"><img src="https://i.imgur.com/Pre2Z9S.png" alt="logo" height="400px"></h3>
 
 Cet outil d'administration en ligne de commande est écrit en batch et encoder en DOS (CP437).
 <p>Il utilise <a href=https://fr.wikipedia.org/wiki/Cmd> CMD.EXE</a> qui est apparu depuis Windows 2000.</p>
