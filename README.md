@@ -1,10 +1,6 @@
 # Outils_PDT
 Une boîte à outils pour les technciens poste de travail sous Windows
-<h3 align="center"><img src="https://i.imgur.com/Pre2Z9S.png" alt="logo" height="400px"></h3>
-
-Cet outil d'administration en ligne de commande est écrit en batch et encoder en UTF-8
-<p>Il utilise uniquement de élément natif de Windows via<a href=https://fr.wikipedia.org/wiki/Cmd> CMD.EXE</a>, il emporte également avec lui des outils comme `7z` et `Wget`.</p>
-<p>Afin d'avoir une grande compatibilité avec l'ensemble des machines, sans installation.</p>
+<h3 align="center"><img src="https://i.ibb.co/j4jDqvC/image.png" alt="logo" height="400px"></h3>
 
 ### Index
 **[Introduction](https://github.com/leghort/Outils_PDT#introduction)**</br>
@@ -12,9 +8,14 @@ Cet outil d'administration en ligne de commande est écrit en batch et encoder e
 **[Licence](https://github.com/leghort/Outils_PDT#licence)**</br>
 
 ## Introduction
-Le but général de cet outil est de réunir un ensemble de scripts, qui automatiser les actions qu'un technicien poste de travail est amené à effectuer régulièrement ceci afin de simplifier l'intervention.
+Le but général de cet outil est de réunir et d'automatiser les actions qu'un technicien poste de travail est amené à effectuer régulièrement ceci afin de simplifier les intervention.
 
 L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou directement en local sur l'ordinateur.
+
+<p>Cet outil est un script batch encoder en UTF-8 et utilise uniquement l'invitation de commande Windows <a href=https://fr.wikipedia.org/wiki/Cmd> CMD.EXE</a></p>.
+<p>Il emporte également avec lui des outils comme `7z` et `Wget`.</p>
+<p>Afin d'avoir une grande compatibilité, il ne demande aucune installation et n'utilise pas PowerShell (Car toutes les machines ne disposent pas forcement de PowerShell)</p>
+
 
 ## Quel distribution suporter ?
 
