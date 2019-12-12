@@ -4,7 +4,7 @@ CHCP 65001 > nul
 MODE con cols=100 lines=40
 TITLE Boite A Outils Technicien Poste De Travail                                                  By M.Cossu
 
-REM Définir les constante
+REM Définir les constantes
 SET "MAIN_FOLDER=%~dp0"
 SET "RESSOURCE_FOLDER=%~dp0ressource\"
 SET "TEMP_FOLDER=%TMP%\Outils_PDT.tmp\"
