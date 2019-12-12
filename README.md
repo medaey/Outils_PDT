@@ -1,6 +1,6 @@
 # Outils_PDT
 <p align="center"><b>Une boîte à outils pour les technciens poste de travail sous Windows</b></p>
-<p align="center"><a href=https://github.com/leghort/Traduction-Griftlands/releases><img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/leghort/Outils_PDT?include_prereleases"></p>
+<p align="center"><a href=https://github.com/leghort/Outils_PDT/releases><img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/leghort/Outils_PDT?include_prereleases"></p>
 
 <h3 align="center"><img src="https://i.ibb.co/j4jDqvC/image.png" alt="logo" height="400px"></h3>
 
@@ -20,7 +20,7 @@ L'outil peut être exécuté à partir d'une clef USB, un partage réseau ou dir
 <p>Afin d'avoir une grande compatibilité, il ne demande aucune installation et n'utilise pas PowerShell (Car toutes les machines ne disposent pas forcement de PowerShell)</p>
 
 ## Télécharger la dernière version
-<a href=https://github.com/leghort/Traduction-Griftlands/releases/latest><img src="https://i.ibb.co/ck3Rxky/Download-Button.png"></a>
+<a href=https://github.com/leghort/Outils_PDT/releases/latest><img src="https://i.ibb.co/ck3Rxky/Download-Button.png"></a>
 
 ## Quel distribution supporter ?
 
