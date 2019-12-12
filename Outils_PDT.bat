@@ -6,6 +6,7 @@ TITLE Boite A Outils Technicien Poste De Travail                                
 
 REM Définir les constante
 SET "MAIN_FOLDER=%~dp0"
+SET "RESSOURCE_FOLDER=%~dp0ressource\"
 SET "TEMP_FOLDER=%TMP%\Outils_PDT.tmp\"
 SET "MAIN_WORKFLOW=%RESSOURCE_FOLDER%mainWorkflow.bat"
 SET "AUTO_LOGON_WORKFLOW=%RESSOURCE_FOLDER%autologonWorkflow.bat"

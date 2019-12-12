@@ -3,8 +3,8 @@ Une boîte à outils pour les technciens poste de travail sous Windows
 <h3 align="center"><img src="https://i.imgur.com/Pre2Z9S.png" alt="logo" height="400px"></h3>
 
 Cet outil d'administration en ligne de commande est écrit en batch et encoder en UTF-8
-<p>Il utilise uniquement de élément natif de Windows via<a href=https://fr.wikipedia.org/wiki/Cmd> CMD.EXE</a>, il emporte également avec lui des outils comme *7z* et *wget*.</p>
-<p>Ceci afin d'avoir une grande compatibilité avec l'ensemble des machines.</p>
+<p>Il utilise uniquement de élément natif de Windows via<a href=https://fr.wikipedia.org/wiki/Cmd> CMD.EXE</a>, il emporte également avec lui des outils comme `7z` et `Wget`.</p>
+<p>Afin d'avoir une grande compatibilité avec l'ensemble des machines, sans installation.</p>
 
 ### Index
 **[Introduction](https://github.com/leghort/Outils_PDT#introduction)**</br>
