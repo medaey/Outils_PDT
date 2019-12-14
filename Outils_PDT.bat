@@ -1,67 +1,67 @@
-@ECHO off
-SETLOCAL
-CHCP 65001 > nul
-MODE con cols=100 lines=40
-TITLE Boite A Outils Technicien Poste De Travail                                                  By M.Cossu
+@echo off
+setlocal
+chcp 65001 > nul
+mode con cols=100 lines=40
+title Boite A Outils Technicien Poste De Travail                                                  By M.Cossu
 
 :: Définir les constantes
-SET "MAIN_FOLDER=%~dp0"
-SET "RESSOURCE_FOLDER=%~dp0ressource\"
-SET "TEMP_FOLDER=%~dp0temp"
-SET "MAIN_WORKFLOW=%RESSOURCE_FOLDER%mainWorkflow.bat"
-SET "AUTO_LOGON_WORKFLOW=%RESSOURCE_FOLDER%autologonWorkflow.bat"
-SET "NETWORK_WORKFLOW=%RESSOURCE_FOLDER%networkWorkflow.bat"
-SET "NUMLOCK_WORKFLOW=%RESSOURCE_FOLDER%numlockWorkflow.bat"
-SET "ABOUT_WORKFLOW=%RESSOURCE_FOLDER%aboutWorkflow.bat"
-SET "ERROR_WORKFLOW=%RESSOURCE_FOLDER%errorWorkflow.bat"
-SET "SOFTWARE_WORKFLOW=%RESSOURCE_FOLDER%softwareWorkflow.bat"
-SET "OPTIONS_WORKFLOW=%RESSOURCE_FOLDER%optionsWorkflow.bat"
+set "MAIN_FOLDER=%~dp0"
+set "RESSOURCE_FOLDER=%~dp0ressource\"
+set "TEMP_FOLDER=%~dp0temp"
+set "MAIN_WORKFLOW=%RESSOURCE_FOLDER%mainWorkflow.bat"
+set "AUTO_LOGON_WORKFLOW=%RESSOURCE_FOLDER%autologonWorkflow.bat"
+set "NETWORK_WORKFLOW=%RESSOURCE_FOLDER%networkWorkflow.bat"
+set "NUMLOCK_WORKFLOW=%RESSOURCE_FOLDER%numlockWorkflow.bat"
+set "ABOUT_WORKFLOW=%RESSOURCE_FOLDER%aboutWorkflow.bat"
+set "ERROR_WORKFLOW=%RESSOURCE_FOLDER%errorWorkflow.bat"
+set "SOFTWARE_WORKFLOW=%RESSOURCE_FOLDER%softwareWorkflow.bat"
+set "OPTIONS_WORKFLOW=%RESSOURCE_FOLDER%optionsWorkflow.bat"
 
 :: Définir les variables
-SET "version=1.1.8"
+set "version=1.1.8"
 
 :POWER_UP_ADMIN
-CD /D %~dp0
-if NOT EXIST "getadmin.vbs" (
-    MODE con lines=2 cols=30
-    ECHO Set UAC = CreateObject^("Shell.Application"^)>getadmin.vbs
-    ECHO UAC.ShellExecute %0, "", "", "runas", 1 >>getadmin.vbs
-    CALL WSCRIPT getadmin.vbs
-    EXIT
+cd /D %~dp0
+if not exist "getadmin.vbs" (
+    mode con lines=2 cols=30
+    echo set UAC = CreateObject^("Shell.Application"^)>getadmin.vbs
+    echo UAC.ShellExecute %0, "", "", "runas", 1 >>getadmin.vbs
+    call wscript getadmin.vbs
+    exit
     )
-DEL getadmin.vbs
+del getadmin.vbs
 
 :checkAdmin
-	CLS
-	ATTRIB %WINDIR%\system32 -h | FINDSTR /I "system32" >nul
-	IF %ERRORLEVEL% NEQ 1 (
-	COLOR 0C
-	ECHO ████████████████████▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀████████████████████
-	ECHO ███████████████████  ▲ Ce script doit etre Exécuter en tant qu'Administrateur ▲  ███████████████████
-	ECHO ████████████████████▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄████████████████████
-	PAUSE
-	GOTO :end
+	cls
+	attrib %WINDIR%\system32 -h | findstr /I "system32" >nul
+	if %ERRORLEVEL% NEQ 1 (
+	color 0C
+	echo ████████████████████▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀████████████████████
+	echo ███████████████████  ▲ Ce script doit etre Exécuter en tant qu'Administrateur ▲  ███████████████████
+	echo ████████████████████▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄████████████████████
+	pause
+	goto :end
     )
 
-IF EXIST %TEMP_FOLDER% (RMDIR /S /Q %TEMP_FOLDER% & MKDIR %TEMP_FOLDER% & ATTRIB +h +s %TEMP_FOLDER%) ELSE MKDIR %TEMP_FOLDER% & ATTRIB +h +s %TEMP_FOLDER%
-SYSTEMINFO | FINDSTR /B /C:"Domain">%TEMP_FOLDER%/domain.tmp & SET /p DOMAINE_NAME=<%TEMP_FOLDER%/domain.tmp
+if exist %TEMP_FOLDER% (rmdir /S /Q %TEMP_FOLDER% & mkdir %TEMP_FOLDER% & attrib +h +s %TEMP_FOLDER%) else mkdir %TEMP_FOLDER% & attrib +h +s %TEMP_FOLDER%
+systeminfo | findstr /B /C:"Domain">%TEMP_FOLDER%/domain.tmp & set /p DOMAINE_NAME=<%TEMP_FOLDER%/domain.tmp
 
-IF NOT EXIST %RESSOURCE_FOLDER% (GOTO :ressourceFolderError)
-CALL %MAIN_WORKFLOW%
+if not exist %RESSOURCE_FOLDER% (goto :ressourceFolderError)
+call %MAIN_WORKFLOW%
 
 :ressourceFolderError
-	CLS
-	COLOR 0C
-	ECHO ██████████████████████████████████████▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█████████████████████████████████████
-	ECHO █████████████████████████████████████  ▲ Dossier introuvable ▲  ████████████████████████████████████
-	ECHO ██████████████████████████████████████▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█████████████████████████████████████
-	ECHO  %RESSOURCE_FOLDER%
-	ECHO.
-	ECHO                    Télécharger le fichier: https://github.com/leghort/Outils_PDT
-	ECHO ────────────────────────────────────────────────────────────────────────────────────────────────────
-	PAUSE
-	GOTO :end
+	cls
+	color 0C
+	echo ██████████████████████████████████████▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█████████████████████████████████████
+	echo █████████████████████████████████████  ▲ Dossier introuvable ▲  ████████████████████████████████████
+	echo ██████████████████████████████████████▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█████████████████████████████████████
+	echo  %RESSOURCE_FOLDER%
+	echo.
+	echo                    Télécharger le fichier: https://github.com/leghort/Outils_PDT
+	echo ────────────────────────────────────────────────────────────────────────────────────────────────────
+	pause
+	goto :end
 
 :end
-	ENDLOCAL
-	EXIT
+	endlocal
+	exit
