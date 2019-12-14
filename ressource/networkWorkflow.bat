@@ -1,17 +1,18 @@
-NET LOCALGROUP administrateurs utilisateurs /add networkservice localservice
-CLS
-COLOR 0b
-ECHO ─────────────────────────────────────────────────────────────
-ECHO /!\ Attention c'ette action va redémarrer l'ordinateur /!\
-ECHO ─────────────────────────────────────────────────────────────
-SET /p question=Souhaitez vous continuez [O/N]?
-IF /i NOT "%question%"=="O" GOTO :back
-SHUTDOWN -r -t 5
-GOTO :end
+net localgroup administrateurs utilisateurs /add networkservice localservice
+cls
+color 0b
+echo ██████████████████████▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀███████████████████████
+echo █████████████████████  ▲ Attention cette action va redémarrer l'ordinateur ▲  ██████████████████████
+echo ██████████████████████▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄███████████████████████
+echo.
+set /p question=Souhaitez vous continuez [O/N]?
+if /i not "%question%"=="O" goto :back
+shutdown -r -t 5
+goto :end
 
 :back
-	CALL %MAIN_WORKFLOW%
+	call %MAIN_WORKFLOW%
 
 :end
-	ENDLOCAL
-	EXIT
+	endlocal
+	exit

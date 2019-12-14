@@ -1,57 +1,56 @@
 :menu
-	CLS
-	COLOR 0b
-	ECHO                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	ECHO                                 █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
-    ECHO                                ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
-    ECHO                                ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║
-    ECHO                                ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║
-    ECHO                                ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║
-    ECHO                                ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
-	ECHO                                       Pavé numérique au démarrage
-	ECHO                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	ECHO                                                         Version : %version%
-	ECHO.
-	ECHO.
-	ECHO Executer depuis : %~dp0
-	ECHO ──────────────────────────────────────────
-	ECHO  1: Activer pavé numérique au démarrage
-	ECHO ──────────────────────────────────────────
-	ECHO  2: Désactiver pavé numérique au démarrage
-	ECHO ──────────────────────────────────────────
-	ECHO  R: Retour au menu principal
-	ECHO ──────────────────────────────────────────
-	ECHO  Q: Quitter
-	ECHO ──────────────────────────────────────────
-	ECHO Quel programme voulez-vous exécuter ?
-	SET NUMLOCK_CHOIX=
-	SET /p NUMLOCK_CHOIX= 
-	IF /i "%NUMLOCK_CHOIX%" == "1" GOTO :enable
-	IF /i "%NUMLOCK_CHOIX%" == "2" GOTO :disable
-	IF /i "%NUMLOCK_CHOIX%" == "r" GOTO :back
-	IF /i "%NUMLOCK_CHOIX%" == "R" GOTO :back
-	IF /i "%NUMLOCK_CHOIX%" == "q" GOTO :end
-	IF /i "%NUMLOCK_CHOIX%" == "Q" GOTO :end
-	IF /i "%NUMLOCK_CHOIX%" == ""  GOTO :menu
-	GOTO :menu
+	cls
+	color 0b
+	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	echo                                 █████╗ ██████╗ ███╗   ███╗██╗███╗   ██╗
+    echo                                ██╔══██╗██╔══██╗████╗ ████║██║████╗  ██║
+    echo                                ███████║██║  ██║██╔████╔██║██║██╔██╗ ██║
+    echo                                ██╔══██║██║  ██║██║╚██╔╝██║██║██║╚██╗██║
+    echo                                ██║  ██║██████╔╝██║ ╚═╝ ██║██║██║ ╚████║
+    echo                                ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝
+	echo                                       Pavé numérique au démarrage
+	echo                                =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	echo                                                         Version : %version%
+	echo.
+	echo.
+	echo Executer depuis : %~dp0
+	echo ╔══════════════════════════════════════════╗
+	echo ║ 1  Activer pavé numérique au démarrage   ║ 
+	echo ╠──────────────────────────────────────────╣
+	echo ║ 2  Désactiver pavé numérique au démarrage║
+	echo ╠════════════════════╦═════════════════════╣
+	echo ║ Q: Quitter         ║ . Retour            ║
+	echo ╚════════════════════╩═════════════════════╝
+	echo Que voulez-vous faire ?
+	set NUMLOCK_CHOIX=""
+	set /p NUMLOCK_CHOIX= 
+	IF "%NUMLOCK_CHOIX%"=="1" goto :enable
+	IF "%NUMLOCK_CHOIX%"=="2" goto :disable
+	IF "%NUMLOCK_CHOIX%"=="r" goto :back
+	IF "%NUMLOCK_CHOIX%"=="R" goto :back
+	IF "%NUMLOCK_CHOIX%"=="." goto :back
+	IF "%NUMLOCK_CHOIX%"=="q" goto :end
+	IF "%NUMLOCK_CHOIX%"=="Q" goto :end
+	IF "%NUMLOCK_CHOIX%"==""  goto :menu
+	goto :menu
 
 :enable
-	CLS
-	REG add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2" /f /t REG_SZ
-	REG QUERY "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
-	PAUSE
-	GOTO :menu
+	cls
+	reg add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2" /f /t reg_SZ
+	reg query "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
+	pause
+	goto :menu
 
 :disable
-	CLS
-	REG add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2147483648" /f /t REG_SZ
-	REG QUERY "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
-	PAUSE
-	GOTO :menu
+	cls
+	reg add "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators" /d "2147483648" /f /t reg_SZ
+	reg query "HKEY_USERS\.DEFAULT\Control Panel\Keyboard" /v "InitialkeyboardIndicators"
+	pause
+	goto :menu
 
 :back
-	CALL %MAIN_WORKFLOW%
+	call %MAIN_WORKFLOW%
 
 :end
-	ENDLOCAL
-	EXIT
+	endlocal
+	exit
