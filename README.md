@@ -1,5 +1,5 @@
 # Outils_PDT
-<p align="center"><b>Une boîte à outils pour les technciens poste de travail sous Windows</b></p>
+<p align="center"><b>Une boîte à outils pour les techniciens poste de travail sous Windows</b></p>
 <p align="center"><a href=https://github.com/leghort/Outils_PDT/releases><img alt="GitHub release (latest by date including pre-releases)" src="https://img.shields.io/github/v/release/leghort/Outils_PDT?include_prereleases"></p>
 
 <h3 align="center"><img src="https://i.ibb.co/4MYJ5Nq/image.png" alt="logo" height="400px"></h3>
